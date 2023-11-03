@@ -1,0 +1,33 @@
+# .github/workflows/pull_request_validation.yml
+name: Pull Request Validation
+
+on: [pull_request]
+
+jobs:
+  validate_pull_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Validate Pull Request
+        id: validate
+        run: |
+          RESPONSE=$(curl -s -X POST -H "Content-Type: application/json" -d '{"repository": {"full_name": "'"$GITHUB_REPOSITORY"'"}}'  https://30b9-155-94-216-17.ngrok-free.app/webhook)
+          echo "API response: $RESPONSE"
+          echo "::set-output name=status::$(echo $RESPONSE | jq -r .status)"
+          echo "::set-output name=message::$(echo $RESPONSE | jq -r .message)"
+          echo "::set-output name=score::$(echo $RESPONSE | jq -r .score)"
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Fail if not valid
+        if: steps.validate.outputs.status == 'error'
+        run: |
+          echo "Pull request validation failed: ${{ steps.validate.outputs.message }}"
+          exit 1
+
+      - name: Print leaderboard position
+        if: steps.validate.outputs.status == 'success'
+        run: |
+          echo "Pull request is valid. Leaderboard score: ${{ steps.validate.outputs.score }}"
