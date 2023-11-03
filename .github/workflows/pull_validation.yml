@@ -1,16 +1,16 @@
-# .github/workflows/pull_request_validation.yml
-name: Pull Request Validation
+# .github/workflows/push_validation.yml
+name: Push Validation
 
-on: [pull_request]
+on: [push]
 
 jobs:
-  validate_pull_request:
+  validate_push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Validate Pull Request
+      - name: Validate Push
         id: validate
         run: |
           RESPONSE=$(curl -s -X POST -H "Content-Type: application/json" -d '{"repository": {"full_name": "'"$GITHUB_REPOSITORY"'"}}'  https://30b9-155-94-216-17.ngrok-free.app/webhook)
@@ -24,10 +24,10 @@ jobs:
       - name: Fail if not valid
         if: steps.validate.outputs.status == 'error'
         run: |
-          echo "Pull request validation failed: ${{ steps.validate.outputs.message }}"
+          echo "Push validation failed: ${{ steps.validate.outputs.message }}"
           exit 1
 
       - name: Print leaderboard position
         if: steps.validate.outputs.status == 'success'
         run: |
-          echo "Pull request is valid. Leaderboard score: ${{ steps.validate.outputs.score }}"
+          echo "Push is valid. Leaderboard score: ${{ steps.validate.outputs.score }}"
