@@ -1,6 +1,5 @@
 import json
 import os
-import base64
 from github import Github
 
 def update_players_json(user, repo_link):
@@ -9,7 +8,7 @@ def update_players_json(user, repo_link):
     repo = g.get_repo("UH-GIA02/Domino-Tournament")
     
     contents = repo.get_contents("src/data/players.json")
-    players_data = json.loads(base64.b64decode(contents.content))
+    players_data = json.loads()
 
     found = False
     for player in players_data:
@@ -25,7 +24,7 @@ def update_players_json(user, repo_link):
         }
         players_data.append(new_player)
 
-    updated_content = base64.b64encode(json.dumps(players_data, indent=4).encode()).decode().replace('\n', '')
+    updated_content = json.dumps(players_data, indent=4).encode()
 
     repo.update_file(contents.path, "Update players.json", updated_content, contents.sha)
 
