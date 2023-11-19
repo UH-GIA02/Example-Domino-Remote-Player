@@ -6,7 +6,7 @@ from github import Github
 def update_players_json(user, repo_link):
     token = os.getenv('DOMINO_PAT')
     g = Github(token)
-    repo = g.get_repo("UH-GIA02/Domino-Tournament/")
+    repo = g.get_repo("UH-GIA02/Domino-Tournament")
     
     contents = repo.get_contents("src/data/players.json")
     players_data = json.loads(base64.b64decode(contents.content))
