@@ -26,6 +26,9 @@ def update_players_json(user, repo_link):
         players_data.append(new_player)
 
     updated_content = base64.b64encode(json.dumps(players_data, indent=4).encode()).decode()
+    print("Path:", contents.path)
+    print("SHA:", contents.sha)
+    print("Updated content:", updated_content[:500])  # Imprime los primeros 500 caracteres
 
     repo.update_file(contents.path, "Update players.json", updated_content, contents.sha)
 
