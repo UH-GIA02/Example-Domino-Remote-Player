@@ -5,6 +5,7 @@ from github import Github
 
 def update_players_json(user, repo_link):
     token = os.getenv('DOMINO_PAT')
+    print(len(token[0]))
     print(token[0])
     print(token[-1])
     g = Github(token)
