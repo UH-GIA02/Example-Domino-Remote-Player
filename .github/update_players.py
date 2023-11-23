@@ -4,7 +4,7 @@ import base64
 from github import Github
 
 def update_players_json(user, repo_link):
-    token = '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'
+    token = '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'
     print(len(token))
     print(token[0])
     print(token[-1])
