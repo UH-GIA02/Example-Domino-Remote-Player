@@ -23,7 +23,7 @@ jobs:
 
     - name: Update players.json in Tournament JSON
       env:
-        REPO_A_PAT: ${{ secrets.DOMINO_PAT }}
+        DOMINO_PAT: ${{ secrets.DOMINO_PAT }}
         PR_AUTHOR: ${{ github.event.pull_request.user.login }}
         PR_LINK: ${{ github.event.pull_request.html_url }}
       run: |
