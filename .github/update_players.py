@@ -27,8 +27,7 @@ def update_players_json(user, repo_link):
             }
             players_data.append(new_player)
 
-        updated_content = base64.b64encode(json.dumps(players_data, indent=4).encode()).decode().replace('\n', '')
-
+        updated_content = json.dumps(players_data, indent=4)
         repo.update_file(contents.path, "Update players.json", updated_content, contents.sha)
 
         print("Archivo players.json actualizado con éxito.")
