@@ -4,10 +4,7 @@ import base64
 from github import Github
 
 def update_players_json(user, repo_link):
-    token = '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'
-    print(len(token))
-    print(token[0])
-    print(token[-1])
+    token = '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'
     g = Github(token)
     repo = g.get_repo("UH-GIA02/Domino-Tournament")
     
