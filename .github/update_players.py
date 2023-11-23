@@ -4,7 +4,7 @@ import base64
 from github import Github
 
 def update_players_json(user, repo_link):
-    token = os.getenv('DOMINO_PAT')
+    token = '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'
     print(len(token))
     print(token[0])
     print(token[-1])
